@@ -6,12 +6,11 @@ var fs = require('fs'),
     magick = require('imagemagick'),
     gm = require('gm'),
     mkdirp = require('mkdirp'),
-    phantomjs = require('phantomjs'),
     defaultConfig = require('./config');
 
 //** load the optional app specific imaging config
 var config = _.extend({}, defaultConfig);
-try { 
+try {
     var cfg = require(process.cwd() + '/imaging.json');
     _.merge(config, cfg);
 }
@@ -63,7 +62,7 @@ var imaging = {
         checkPath: function(path) {
             var def = Q.defer(),
                 //** allows for the path to be an object { path: '' } or string
-                path = typeof(path) === 'string' ? path : path.path; 
+                path = typeof(path) === 'string' ? path : path.path;
 
             fs.exists(path, function(exists) {
                 !!exists
@@ -94,7 +93,7 @@ var imaging = {
         var def = Q.defer(),
             sources = config.sources,
             platforms = [];
-        
+
         //** determine which platforms are supported based on whats defined in the config, and what is on disk
         console.log('verifying platforms');
         return Q.all(_.map(config.platforms||[], imaging.util.checkPlatform));
@@ -211,7 +210,7 @@ var imaging = {
 
         console.log('   ', icon.size, 'x', icon.size, icon.output);
 
-        //** its possible for some directories to not be created; ex latest version of cordova android 4.* doesn't create res/drawable/ 
+        //** its possible for some directories to not be created; ex latest version of cordova android 4.* doesn't create res/drawable/
         var dstDir = pth.dirname(opt.dstPath);
         fs.exists(dstDir, function(exists) {
             !!exists
@@ -366,7 +365,7 @@ var imaging = {
 
             //** if we provide both height and width, we get a square and its fubars the crop; give it the largest dimension only.  this will
             //** scale the image, however, which will effect the final dimensions of the image.
-            preview.width > preview.height 
+            preview.width > preview.height
                 ? (opt.width = preview.width)
                 : (opt.height = preview.height);
 

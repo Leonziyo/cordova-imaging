@@ -1,17 +1,17 @@
-/** 
- *  provides application configuration and definitions for the image assets generated, for use 
- *  in the mobile application and app store.  
+/**
+ *  provides application configuration and definitions for the image assets generated, for use
+ *  in the mobile application and app store.
  *
  */
 
 module.exports = {
     //** the name of the cordova project config xml file
     configXml: 'config.xml',
-    
+
     //** assets like previews, etc, are output here, and source assets are read from here
     assetPath: 'assets/',
 
-    //** appicon and splashscreen source paths. by default they are in an ./assets subfolder in the root of your 
+    //** appicon and splashscreen source paths. by default they are in an ./assets subfolder in the root of your
     //** cordova project.  these can be located anywhere on disk; override in the config local to your project.
     sources: {
         appicon: 'assets/appicon.png',
@@ -111,7 +111,7 @@ module.exports = {
             { width : 1242,  height : 2208, type: '5-5inch', output: '$file$-port.jpg' },
             { width : 2208,  height : 1242, type: '5-5inch', output: '$file$-land.jpg' },
 
-            //** ipad 
+            //** ipad
             { width : 768,  height : 1004, type: 'ipad', output: '$file$-port.jpg' },
             { width : 768,  height : 1024, type: 'ipad', output: '$file$-port-full.jpg' },
             { width : 1024,  height : 748, type: 'ipad', output: '$file$-land.jpg' },
@@ -133,7 +133,7 @@ module.exports = {
         path: 'platforms/android/',
 
         //** path where assets are output for mobile app
-        destinationPath: 'platforms/android/res/',
+        destinationPath: 'platforms/android/app/src/main/res/',
 
         //** by default, generate icons, splashscreens, and previews
         generateIcons: true,
@@ -143,14 +143,12 @@ module.exports = {
         //** supported icons, source: http://developer.android.com/design/style/iconography.html
         //** note: ldpi support is automatically provided by android
         icons: [
-            { size: 96, output: 'drawable/icon.png' },
-            { size: 48, output: 'drawable-mdpi/icon.png' },
-            { size: 72, output: 'drawable-hdpi/icon.png' },
-            { size: 96, output: 'drawable-xhdpi/icon.png' }
-            
-            //** cordova doesn't create these folders (yet), and imagemagick wont create folders as it writes paths...commenting out for now
-            //{ size: 144, output: 'drawable-xxhdpi/icon.png' },
-            //{ size: 192, output: 'drawable-xxxhdpi/icon.png' }
+            { size: 36, output: 'mipmap-ldpi/icon.png' },
+            { size: 48, output: 'mipmap-mdpi/icon.png' },
+            { size: 72, output: 'mipmap-hdpi/icon.png' },
+            { size: 96, output: 'mipmap-xhdpi/icon.png' },
+            { size: 144, output: 'mipmap-xxhdpi/icon.png' },
+            { size: 192, output: 'mipmap-xxxhdpi/icon.png' }
         ],
 
         //** supported splashscreens, source: http://developer.android.com/guide/practices/screens_support.html
