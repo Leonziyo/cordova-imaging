@@ -151,6 +151,9 @@ module.exports = {
             { size: 192, output: 'mipmap-xxxhdpi/icon.png' }
         ],
 
+        //** define the app store app icon; this will be generated along with the normal app icons; no alphas or transparencies, hence the jpg
+        appstoreIcon: { size: 1024, output: 'appstore-icon.jpg' },
+
         //** supported splashscreens, source: http://developer.android.com/guide/practices/screens_support.html
         splashscreens: [
             //** landscape
