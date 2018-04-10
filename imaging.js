@@ -189,10 +189,39 @@ var imaging = {
             //** add one more task to generate the app store app icon at the asset path
             !!cfg.appstoreIcon && actions.push(imaging.generateIcon(config.assetPath, cfg.appstoreIcon));
 
+            !!cfg.feature && actions.push(imaging.generateFeature(config.assetPath, cfg.feature));
+
             queue.push(Q.all(actions));
         });
 
         return Q.all(queue);
+    },
+
+    generateFeature: function(path, icon) {
+        var def = Q.defer();
+        var iconPath = config.sources.appicon;
+        var srcPath = iconPath[0]=='/' ? iconPath : pth.join(process.cwd(), iconPath);
+        var dstPath = pth.join(process.cwd(), path, icon.output);
+        var size = icon.width + 'x' + icon.height + '!';
+
+        console.log('   ', icon.width, 'x', icon.height, icon.output);
+
+        //** its possible for some directories to not be created; ex latest version of cordova android 4.* doesn't create res/drawable/
+        var dstDir = pth.dirname(dstPath);
+        fs.exists(dstDir, function(exists) {
+            !!exists
+                ? doResize()
+                : fs.mkdir(dstDir, function(err) { !!err ? def.reject(err) : doResize() });
+        });
+
+        function doResize() {
+            magick.convert([srcPath, '-resize', size, dstPath], function(err) {
+                //** imagemagick wont create directories (yet), so a failure in creating images usually means directories are missing...
+                !!err ? def.reject(err) : def.resolve();
+            });
+        }
+
+        return def.promise;
     },
 
     generateIcon: function(path, icon) {
